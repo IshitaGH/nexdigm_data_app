@@ -1,5 +1,8 @@
-# Ignore Mac system files
+#ignore Mac system files
 .DS_store
+
+#ignore compiled bytecode
+*.pyc
 
 #ignore test profile pics
 /default_profile_pic.jpeg
@@ -8,3 +11,6 @@
 
 #ignore dummy posts
 /posts.json
+
+#ignore database
+db.sqlite3

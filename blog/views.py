@@ -6,11 +6,11 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 
-def home(request):
-    context = {
-        'posts': Post.objects.all()
-    }
-    return render(request, 'blog/home.html', context)
+# def home(request):
+#     context = {
+#         'posts': Post.objects.all()
+#     }
+#     return render(request, 'blog/home.html', context)
 
 class PostListView(ListView):
     model = Post
@@ -56,7 +56,7 @@ class PostUpdateView(LoginRequiredMixin,  UserPassesTestMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin,  UserPassesTestMixin, DeleteView):
     model = Post
-    success_url = '/'
+    success_url = '/blog/'
 
     def test_func(self):
         post = self.get_object()
