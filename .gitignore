@@ -1,0 +1,10 @@
+# Ignore Mac system files
+.DS_store
+
+#ignore test profile pics
+/default_profile_pic.jpeg
+/test_photo.jpeg
+/test_photo2.jpg
+
+#ignore dummy posts
+/posts.json
