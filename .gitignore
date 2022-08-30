@@ -3,6 +3,7 @@
 
 #ignore compiled bytecode
 *.pyc
+*.py
 
 #ignore test profile pics
 /default_profile_pic.jpeg
