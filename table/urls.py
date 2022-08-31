@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [
     path('', views.home, name='table-home'),
     path('output/', views.output, name="table-output/"),
+    path('about/', views.about, name='table-about'),
 ]

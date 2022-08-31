@@ -32,6 +32,9 @@ def output(request):
     out = dummy(current.num1, current.num2)
     return render(request, 'table/output.html', {'out':out})
 
+def about(request):
+    return render(request, 'table/about.html', {'title': 'About'})
+
 # class PostCreateView(CreateView):
 #     model = Post
 #     fields = ['num1', 'num2']
