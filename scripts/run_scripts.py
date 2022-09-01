@@ -1,23 +1,29 @@
 #!/usr/bin/python3
 
 import runpy
-from ../table/models.py import Post
+import sys
+sys.path.append('/Users/IshitaGhosh/Desktop/nexdigm/nexdigm_data_app/')
+
+import django
+django.setup()
+
+from table.models import Post
 
 global_vars = {
-    "entry": Post.objects.last()
-    "num1": entry.num1,
-    "num2": entry.num2
+    "current_entry": Post.objects.last(),
+    "num1": Post.objects.last().num1,
+    "num2": Post.objects.last().num2
 }
 
 # global_vars["num1"] = 
 def fn1():
-    runpy.run_path(path_name=r"test_1.py", init_globals=global_vars, run_name='test_1')
+    runpy.run_path(path_name=r"scripts/test_1.py", init_globals=global_vars, run_name='__main__')
 
 def fn2():
-    runpy.run_path(path_name=r"test_2.py", init_globals=global_vars, run_name='__main__')
+    runpy.run_path(path_name=r"scripts/test_2.py", init_globals=global_vars, run_name='__main__')
 
 def fn3():
-    runpy.run_path(path_name=r"test_3.py", init_globals=global_vars, run_name='__main__')
+    runpy.run_path(path_name=r"scripts/test_3.py", init_globals=global_vars, run_name='__main__')
 
 def main():
     fn1()

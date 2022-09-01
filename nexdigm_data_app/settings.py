@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
     'table.apps.TableConfig',
-    # 'scripts',
+    'scripts.apps.ScriptsConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',

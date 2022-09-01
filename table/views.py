@@ -32,10 +32,14 @@ def home(request):
 # ]
 
 def output(request):
+    runpy.run_path(path_name=r"../nexdigm_data_app/scripts/run_scripts.py", run_name='__main__')
     current = Post.objects.last()
-    # out = dummy(current.num1, current.num2)
-    out = 5
-    return render(request, 'table/output.html', {'out':out})
+    context = {
+        "add": current.add,
+        "square": current.square,
+        "neg": current.neg
+    }
+    return render(request, 'table/output.html', context)
 
 def about(request):
     return render(request, 'table/about.html', {'title': 'About'})

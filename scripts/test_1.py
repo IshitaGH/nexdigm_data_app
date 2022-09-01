@@ -1,15 +1,21 @@
 #!/usr/bin/python3
 
-global add
+import sys
+sys.path.append('/Users/IshitaGhosh/Desktop/nexdigm/nexdigm_data_app/')
 
-def test_1(num1, num2):
-    add = num1 + num2
-    num1 = add
-    print(f"running test_1: {num1}, {num2}\n")
-    return add
+# import django #might have to delete these two lines later
+# django.setup()
+
+from table.models import Post
+
+
+def test_1():
+    current_entry.add = num1 + num2
+    current_entry.save()
+    print(f"running test_1: {current_entry.add}\n")
 
 def main():
-    return test_1(num1, num2)
+    test_1()
 
 if __name__ == "__main__":
     main()
