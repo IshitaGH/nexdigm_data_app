@@ -2,9 +2,9 @@ from django.shortcuts import render
 # from django.http import HttpResponse
 from .models import Post
 from django.views.generic import CreateView, DetailView
-from scripts.dummy_script import dummy
 from .forms import Post_Form
 from django.http import HttpResponseRedirect
+import runpy
 
 # Create your views here.
 
@@ -27,9 +27,14 @@ def home(request):
 
     return render(request, 'table/home.html', {'form':form, 'submitted':submitted})
 
+# output = [
+#     'sum' = 
+# ]
+
 def output(request):
     current = Post.objects.last()
-    out = dummy(current.num1, current.num2)
+    # out = dummy(current.num1, current.num2)
+    out = 5
     return render(request, 'table/output.html', {'out':out})
 
 def about(request):
