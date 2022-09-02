@@ -14,3 +14,6 @@
 
 #ignore database
 db.sqlite3
+
+#ignore env file
+.env

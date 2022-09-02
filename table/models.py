@@ -24,8 +24,8 @@ FILE_TYPE_CHOICES = (
 )
 
 CONSOLIDATION_TYPE_CHOICES = (
-    ("Monthly", "Monthly"),
-    ("Yearly", "Yearly")
+    ("Daily", "Daily"),
+    ("Monthly", "Monthly")
 )
 
 class Post(models.Model):
