@@ -12,7 +12,7 @@ from table.models import Post
 def test_3():
     current_entry.neg = -current_entry.square
     current_entry.save()
-    print(f"running test_3: {current_entry.neg}\n")
+    # print(f"running test_3: {current_entry.neg}\n")
 
 def main():
     test_3()

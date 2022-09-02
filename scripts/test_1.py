@@ -12,7 +12,7 @@ from table.models import Post
 def test_1():
     current_entry.add = num1 + num2
     current_entry.save()
-    print(f"running test_1: {current_entry.add}\n")
+    # print(f"running test_1: {current_entry.add}\n")
 
 def main():
     test_1()

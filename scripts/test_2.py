@@ -11,7 +11,7 @@ from table.models import Post
 def test_2():
     current_entry.square = current_entry.add * current_entry.add
     current_entry.save()
-    print(f"running test_2: {current_entry.square}\n")
+    # print(f"running test_2: {current_entry.square}\n")
 
 def main():
     test_2()

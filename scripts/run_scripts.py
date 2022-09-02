@@ -29,7 +29,7 @@ def main():
     fn1()
     fn2()
     fn3()
-    print(global_vars.items())
+    # print(global_vars.items())
 
 if __name__ == '__main__':
     main()
