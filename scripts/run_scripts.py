@@ -10,9 +10,7 @@ django.setup()
 from table.models import Post
 
 global_vars = {
-    "current_entry": Post.objects.last(),
-    "num1": Post.objects.last().num1,
-    "num2": Post.objects.last().num2
+    "current_entry": current_entry,
 }
 
 # global_vars["num1"] = 

@@ -33,9 +33,9 @@ CONSOLIDATION_TYPE_CHOICES = (
 class Post(models.Model):
     num1 = models.DecimalField(max_digits=5, decimal_places=2)
     num2 = models.DecimalField(max_digits=5, decimal_places=2)
-    add = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    square = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    neg = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    add = models.DecimalField(max_digits=500, decimal_places=2, null=True, blank=True)
+    square = models.DecimalField(max_digits=500, decimal_places=2, null=True, blank=True)
+    neg = models.DecimalField(max_digits=500, decimal_places=2, null=True, blank=True)
 
     # date_posted = models.DateTimeField(default=timezone.now)
 

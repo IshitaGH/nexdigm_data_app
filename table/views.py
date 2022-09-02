@@ -36,14 +36,22 @@ def home(request):
 
 @login_required
 def output(request):
-    runpy.run_path(path_name=r"../nexdigm_data_app/scripts/run_scripts.py", run_name='__main__')
-    current = Post.objects.last()
-    context = {
-        "add": current.add,
-        "square": current.square,
-        "neg": current.neg
-    }
-    return render(request, 'table/output.html', context)
+    current = Post.objects.filter(author=request.user).last()
+    if not current:
+        # return home(request)
+        return HttpResponseRedirect('/')
+    else:
+        global_vars = {
+            "current_entry": current
+        }
+        runpy.run_path(path_name=r"../nexdigm_data_app/scripts/run_scripts.py", init_globals=global_vars, run_name='__main__')
+        
+        context = {
+            "add": current.add,
+            "square": current.square,
+            "neg": current.neg
+        }
+        return render(request, 'table/output.html', context)
 
 def about(request):
     return render(request, 'table/about.html', {'title': 'About'})
