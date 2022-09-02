@@ -44,10 +44,6 @@ class Post(models.Model):
     Month = models.IntegerField(choices=MONTH_CHOICES, null=True, blank=True)
     File_Type = models.CharField(max_length=100, choices=FILE_TYPE_CHOICES, null=True, blank=True)
     Consolidation_Type = models.CharField(max_length=100, choices=CONSOLIDATION_TYPE_CHOICES, null=True, blank=True)
-    Dealer_1 = models.BooleanField(null=True, blank=True)
-    Dealer_2 = models.BooleanField(null=True, blank=True)
-    Dealer_3 = models.BooleanField(null=True, blank=True)
-    Dealer_4 = models.BooleanField(null=True, blank=True)
 
     def __str__(self):
         return f'{self.num1}, {self.num2}'
