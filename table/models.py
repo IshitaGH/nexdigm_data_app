@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
 
 MONTH_CHOICES = (
     (1, "Jan"),
@@ -28,6 +29,7 @@ CONSOLIDATION_TYPE_CHOICES = (
     ("Monthly", "Monthly")
 )
 
+# @with_author
 class Post(models.Model):
     num1 = models.DecimalField(max_digits=5, decimal_places=2)
     num2 = models.DecimalField(max_digits=5, decimal_places=2)
@@ -36,7 +38,6 @@ class Post(models.Model):
     neg = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
 
     # date_posted = models.DateTimeField(default=timezone.now)
-    # author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     #the actual interface
     #remove the null=True and blank=True when ready
@@ -44,6 +45,7 @@ class Post(models.Model):
     Month = models.IntegerField(choices=MONTH_CHOICES, null=True, blank=True)
     File_Type = models.CharField(max_length=100, choices=FILE_TYPE_CHOICES, null=True, blank=True)
     Consolidation_Type = models.CharField(max_length=100, choices=CONSOLIDATION_TYPE_CHOICES, null=True, blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return f'{self.num1}, {self.num2}'

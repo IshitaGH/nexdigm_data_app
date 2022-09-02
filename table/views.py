@@ -1,13 +1,14 @@
 from django.shortcuts import render
 # from django.http import HttpResponse
 from .models import Post
-from django.views.generic import CreateView, DetailView
+# from django.views.generic import CreateView, DetailView
 from .forms import Post_Form
 from django.http import HttpResponseRedirect
 import runpy
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required
 def home(request):
     # model = Post
     # fields = ['num1', 'num2']
@@ -18,7 +19,9 @@ def home(request):
     if request.method == "POST":
         form = Post_Form(request.POST)
         if form.is_valid():
-            form.save()
+            new_post = form.save()
+            new_post.author = request.user
+            new_post.save()
             return HttpResponseRedirect('output/')
     else:
         form = Post_Form
@@ -31,6 +34,7 @@ def home(request):
 #     'sum' = 
 # ]
 
+@login_required
 def output(request):
     runpy.run_path(path_name=r"../nexdigm_data_app/scripts/run_scripts.py", run_name='__main__')
     current = Post.objects.last()
