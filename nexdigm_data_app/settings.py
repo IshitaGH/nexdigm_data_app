@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
     'table.apps.TableConfig',
     'scripts.apps.ScriptsConfig',
@@ -127,7 +126,7 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'blog-home'
+LOGIN_REDIRECT_URL = 'table-home'
 LOGIN_URL = 'login'
 
 # Default primary key field type
