@@ -1,11 +1,13 @@
 from django.shortcuts import render
 # from django.http import HttpResponse
-from .models import Post
+from .models import Post, Data
 # from django.views.generic import CreateView, DetailView
 from .forms import Post_Form
 from django.http import HttpResponseRedirect
 import runpy
 from django.contrib.auth.decorators import login_required
+from django_tables2 import SingleTableView
+from .tables import Currency_Master, Product_Master, Distributor_Master
 # Create your views here.
 
 @login_required
@@ -38,7 +40,6 @@ def home(request):
 def output(request):
     current = Post.objects.filter(author=request.user).last()
     if not current:
-        # return home(request)
         return HttpResponseRedirect('/')
     else:
         global_vars = {
@@ -55,6 +56,21 @@ def output(request):
 
 def about(request):
     return render(request, 'table/about.html', {'title': 'About'})
+
+class CurrencyTableView(SingleTableView):
+    model = Data
+    table_class = Currency_Master
+    template_name = 'table/tables.html'
+
+class ProductTableView(SingleTableView):
+    model = Data
+    table_class = Product_Master
+    template_name = 'table/tables.html'
+
+class DistributorTableView(SingleTableView):
+    model = Data
+    table_class = Distributor_Master
+    template_name = 'table/tables.html'
 
 # class PostCreateView(CreateView):
 #     model = Post

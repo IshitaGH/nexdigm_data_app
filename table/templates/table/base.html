@@ -63,8 +63,14 @@
                   <!-- <p class='text-muted'>You can put any information here you'd like. -->
                     <ul class="list-group">
                       <li class="list-group-item list-group-item-light">
-                        <a href="https://skpgroup-my.sharepoint.com/personal/shmalve_skpgroup_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fshmalve%5Fskpgroup%5Fcom%2FDocuments%2FDCT%20Web%20App&ct=1662059103768&or=Teams%2DHL&ga=1">
-                        Master Data</a></li>
+                        <a href="{% url 'table-currency-master-data' %}">
+                        Currency Master Data</a></li>
+                      <li class="list-group-item list-group-item-light">
+                        <a href="{% url 'table-product-master-data' %}">
+                        Product Master Data</a></li>
+                      <li class="list-group-item list-group-item-light">
+                        <a href="{% url 'table-distributor-master-data' %}">
+                        Distributor Master Data</a></li>
                     </ul>
                   </p>
                 </div>
