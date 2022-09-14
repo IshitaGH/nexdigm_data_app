@@ -18,7 +18,7 @@ class Data_Form(ModelForm):
 class Distributor_Data_Form(ModelForm):
     class Meta:
         model = Data
-        fields = ('Distributor', 'Region', 'Name', 'Selection', 'Currency', 'Product')
+        fields = ('Distributor', 'Region', 'Name', 'Selection')
 
 class Currency_Data_Form(ModelForm):
     class Meta:

@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseNotAllowed
 from .models import Post, Data
 from users.models import Profile
 # from django.views.generic import CreateView, DetailView
-from .forms import Post_Form, Data_Form, Data_FormSet
+from .forms import Post_Form, Data_Form, Data_FormSet, Distributor_Data_Form, Product_Data_Form, Currency_Data_Form
 from django.http import HttpResponseRedirect
 import runpy
 from django.contrib.auth.decorators import login_required
@@ -72,7 +72,7 @@ class ProductTableView(SingleTableView):
     table_class = Product_Master
     template_name = 'table/tables.html'
 
-def create_data(request, pk):
+def create_data(request, pk, which_master):
     author = Profile.objects.get(user=request.user)
     d = Data.objects.filter(author=author)
     form = Data_Form(request.POST or None)
@@ -85,7 +85,7 @@ def create_data(request, pk):
             data.author = author
             data.save()
             print("create data redirecting to detail data\n")
-            return redirect("detail-data", pk=data.id)
+            return redirect("detail-data", pk=data.id, which_master=which_master)
         else:
             print("create data redirecting to create data cuz invalid form\n")
             return render(request, "table/partials/data_form.html", context={
@@ -95,16 +95,17 @@ def create_data(request, pk):
     context = {
         "form": form,
         "author": author,
-        "data": d
+        "data": d,
+        "which_master": which_master
     }
     print("create data redirecting to create cuz nothing happened data\n")
 
     return render(request, "table/create_data.html", context)
 
-def update_data(request, pk):
+def update_data(request, pk, which_master):
     print(f'pk passed into fn: {pk}')
     data = Data.objects.get(pk=pk)
-    print(f'data referenced: {data}\n')
+    print(f'data referenced: {data}\ncurrency: {data.Currency}\n')
     form = Data_Form(request.POST or None, instance=data)
 
     if request.method == "POST":
@@ -112,11 +113,12 @@ def update_data(request, pk):
             form.save()
             print("in update data- when updating data IS posted, id available")
             print(data.id)
-            return redirect("detail-data", pk=data.pk)
+            return redirect("detail-data", pk=data.pk, which_master=which_master)
 
     context = {
         "form": form,
         "d": data,
+        "which_master": which_master
     }
 
     print("in update data- data form NOT yet posted")
@@ -137,19 +139,25 @@ def delete_data(request, pk):
         ]
     )
 
-def detail_data(request, pk):
+def detail_data(request, pk, which_master):
     data = get_object_or_404(Data, pk=pk)
     print(data.pk)
     print("in detail data, detail id is ^\n\n")
     context = {
         "d": data,
+        "which_master": which_master
     }
-    return render(request, "table/partials/data_detail.html", context)
+    if which_master == 0:
+        return render(request, "table/partials/currency_data_detail.html", context)
+    if which_master == 1:
+        return render(request, "table/partials/product_data_detail.html", context)
+    if which_master == 2:
+        return render(request, "table/partials/base_data_detail.html", context)
 
 def create_data_form(request):
     form = Data_Form()
     context = {
-        "form": form
+        "form": form,
     }
     print("in create data form- am creating a new data entry\n\n")
     return render(request, "table/partials/data_form.html", context)
