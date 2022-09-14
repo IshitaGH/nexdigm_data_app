@@ -1,5 +1,6 @@
 import django_tables2 as tables
 from .models import Data
+from django.db import models
 
 class Currency_Master(tables.Table):
     class Meta:

@@ -3,6 +3,7 @@ from django.urls import reverse
 import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
+from users.models import Profile
 # import django_tables2 as tables
 
 MONTH_CHOICES = (
@@ -47,6 +48,7 @@ class Post(models.Model):
 
     #the actual interface
     #remove the null=True and blank=True when ready
+    #might have to join this one and data later on??
     Year = models.IntegerField(('year'), validators=[MinValueValidator(1900), MaxValueValidator(2022)], null=True, blank=True)
     Month = models.IntegerField(choices=MONTH_CHOICES, null=True, blank=True)
     File_Type = models.CharField(max_length=100, choices=FILE_TYPE_CHOICES, null=True, blank=True)
@@ -60,15 +62,13 @@ class Post(models.Model):
         return reverse('post-detail', kwargs={'pk': self.pk})
 
 class Data(models.Model):
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     Distributor = models.IntegerField()
-    Region = models.CharField(max_length=100, choices=REGION_CHOICES, null=True, blank=True)
-    Name = models.CharField(max_length=100, null=True, blank=True)
-    Selection = models.BooleanField(null=True, blank=True)
+    Region = models.CharField(max_length=100, choices=REGION_CHOICES)
+    Name = models.CharField(max_length=100)
+    Selection = models.BooleanField()
+    Currency = models.CharField(max_length=100)
+    Product = models.CharField(max_length=100)
     
     def __str__(self):
         return self.Name
-
-# class Table(tables.Table):
-#     class Meta:
-#         template_name = "django_tables2/bootstrap.html"
-#         fields = ("Distributor", "Region", "Name", "Selection" )

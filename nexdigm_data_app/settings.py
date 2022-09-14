@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'table.apps.TableConfig',
     'crispy_forms',
     "django_tables2",
+    'tailwind',
+    'crispy_tailwind',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+CRISPY_ALLOWED_TAILWIND_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -119,7 +124,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 MEDIA_ROOT = Path(BASE_DIR,  'media') 
 MEDIA_URL = '/media/'
@@ -128,6 +133,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'table-home'
 LOGIN_URL = 'login'
+
+AUTH_PROFILE_MODULE = 'users.Profile'
 
 # AUTH_USER_MODEL = 'users.Profile'
 

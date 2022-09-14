@@ -16,12 +16,13 @@
         {% else %}
             <title>Data Consolidation Tool</title>
         {% endif %}
+        <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}">
     </head>
     <body>
         <header class="site-header">
             <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
               <div class="container">
-                <a class="navbar-brand mr-4" href="{% url 'table-home' %}">Django Data Consolidation Tool</a>
+                <a class="navbar-brand mr-4" href="{% url 'table-home' %}">Nexdigm Data Consolidation Tool</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -69,7 +70,7 @@
                         <a href="{% url 'table-product-master-data' %}">
                         Product Master Data</a></li>
                       <li class="list-group-item list-group-item-light">
-                        <a href="{% url 'table-distributor-master-data' %}">
+                        <a href="{% url 'table-distributor-create-data' user.id %}">
                         Distributor Master Data</a></li>
                     </ul>
                   </p>
