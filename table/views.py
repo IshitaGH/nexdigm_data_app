@@ -8,11 +8,12 @@ from django.http import HttpResponseRedirect
 import runpy
 from django.contrib.auth.decorators import login_required
 from django_tables2 import SingleTableView
-from .tables import Currency_Master, Product_Master, Distributor_Master
 from django.forms import modelformset_factory
+from microsoft_authentication.auth.auth_decorators import microsoft_login_required
 # Create your views here.
 
-@login_required
+# @login_required
+# @microsoft_login_required()
 def home(request):
     # model = Post
     # fields = ['num1', 'num2']
@@ -41,7 +42,8 @@ def home(request):
 #     'sum' = 
 # ]
 
-@login_required
+# @login_required
+@microsoft_login_required()
 def output(request):
     current = Post.objects.filter(author=request.user).last()
     if not current:
@@ -62,16 +64,7 @@ def output(request):
 def about(request):
     return render(request, 'table/about.html', {'title': 'About'})
 
-class CurrencyTableView(SingleTableView):
-    model = Data
-    table_class = Currency_Master
-    template_name = 'table/tables.html'
-
-class ProductTableView(SingleTableView):
-    model = Data
-    table_class = Product_Master
-    template_name = 'table/tables.html'
-
+@microsoft_login_required()
 def create_data(request, pk, which_master):
     author = Profile.objects.get(user=request.user)
     d = Data.objects.filter(author=author)
@@ -102,6 +95,7 @@ def create_data(request, pk, which_master):
 
     return render(request, "table/create_data.html", context)
 
+@microsoft_login_required()
 def update_data(request, pk, which_master):
     print(f'pk passed into fn: {pk}')
     data = Data.objects.get(pk=pk)
@@ -124,6 +118,7 @@ def update_data(request, pk, which_master):
     print("in update data- data form NOT yet posted")
     return render(request, "table/partials/data_form.html", context)
 
+@microsoft_login_required()
 def delete_data(request, pk):
     data = get_object_or_404(Data, pk=pk)
 
@@ -139,6 +134,7 @@ def delete_data(request, pk):
         ]
     )
 
+@microsoft_login_required()
 def detail_data(request, pk, which_master):
     data = get_object_or_404(Data, pk=pk)
     print(data.pk)
@@ -154,6 +150,7 @@ def detail_data(request, pk, which_master):
     if which_master == 2:
         return render(request, "table/partials/base_data_detail.html", context)
 
+@microsoft_login_required()
 def create_data_form(request):
     form = Data_Form()
     context = {
