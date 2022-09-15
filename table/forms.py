@@ -15,21 +15,6 @@ class Data_Form(ModelForm):
         model = Data
         fields = ('Distributor', 'Region', 'Name', 'Selection', 'Currency', 'Product')
 
-class Distributor_Data_Form(ModelForm):
-    class Meta:
-        model = Data
-        fields = ('Distributor', 'Region', 'Name', 'Selection')
-
-class Currency_Data_Form(ModelForm):
-    class Meta:
-        model = Data
-        fields = ('Distributor', 'Region', 'Name', 'Selection', 'Currency', 'Product')
-
-class Product_Data_Form(ModelForm):
-    class Meta:
-        model = Data
-        fields = ('Distributor', 'Region', 'Name', 'Selection', 'Currency', 'Product')
-
 
 Data_FormSet = inlineformset_factory(
     Profile,

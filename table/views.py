@@ -3,12 +3,10 @@ from django.http import HttpResponse, HttpResponseNotAllowed
 from .models import Post, Data
 from users.models import Profile
 # from django.views.generic import CreateView, DetailView
-from .forms import Post_Form, Data_Form, Data_FormSet, Distributor_Data_Form, Product_Data_Form, Currency_Data_Form
+from .forms import Post_Form, Data_Form, Data_FormSet
 from django.http import HttpResponseRedirect
 import runpy
 from django.contrib.auth.decorators import login_required
-from django_tables2 import SingleTableView
-from .tables import Currency_Master, Product_Master, Distributor_Master
 from django.forms import modelformset_factory
 # Create your views here.
 
@@ -62,16 +60,7 @@ def output(request):
 def about(request):
     return render(request, 'table/about.html', {'title': 'About'})
 
-class CurrencyTableView(SingleTableView):
-    model = Data
-    table_class = Currency_Master
-    template_name = 'table/tables.html'
-
-class ProductTableView(SingleTableView):
-    model = Data
-    table_class = Product_Master
-    template_name = 'table/tables.html'
-
+@login_required
 def create_data(request, pk, which_master):
     author = Profile.objects.get(user=request.user)
     d = Data.objects.filter(author=author)
@@ -102,6 +91,7 @@ def create_data(request, pk, which_master):
 
     return render(request, "table/create_data.html", context)
 
+@login_required
 def update_data(request, pk, which_master):
     print(f'pk passed into fn: {pk}')
     data = Data.objects.get(pk=pk)
@@ -124,6 +114,7 @@ def update_data(request, pk, which_master):
     print("in update data- data form NOT yet posted")
     return render(request, "table/partials/data_form.html", context)
 
+@login_required
 def delete_data(request, pk):
     data = get_object_or_404(Data, pk=pk)
 
@@ -139,6 +130,7 @@ def delete_data(request, pk):
         ]
     )
 
+@login_required
 def detail_data(request, pk, which_master):
     data = get_object_or_404(Data, pk=pk)
     print(data.pk)
@@ -154,6 +146,7 @@ def detail_data(request, pk, which_master):
     if which_master == 2:
         return render(request, "table/partials/base_data_detail.html", context)
 
+@login_required
 def create_data_form(request):
     form = Data_Form()
     context = {
