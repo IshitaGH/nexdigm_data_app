@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import CurrencyTableView, ProductTableView
 # from .views import PostCreateView, PostDetailView
 
 urlpatterns = [
