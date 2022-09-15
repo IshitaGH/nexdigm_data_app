@@ -5,13 +5,15 @@
     <p class="text-gray-600">Region: {{ d.Region }}</p>
     <p class="text-gray-600">Name: {{ d.Name }}</p>
     <p class="text-gray-600">Selection: {{ d.Selection }}</p>
-    {% block content %}
-    {% endblock content %}
+    <p class="text-gray-600">Currency: {{ d.Currency }}</p>
+    <p class="text-gray-600">Product: {{ d.Product }}</p>
     <div class="mt-2">
-        <button hx-get="{% url 'update-data' pk=d.id which_master=2%}" hx-swap="outerHTML"
+        <!-- THIS IS THE STUFF NOT WORKING- called a url tag -->
+        <button hx-get="{% url 'update-data' d.id %}" hx-swap="outerHTML"
             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Update
         </button>
+        <!-- THIS IS THE STUFF NOT WORKING -->
         <button hx-post="{% url 'delete-data' d.id %}" hx-swap="outerHTML swap:1s"
             class="ml-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
             Delete
