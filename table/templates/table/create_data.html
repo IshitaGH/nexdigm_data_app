@@ -20,11 +20,19 @@
 <div id="dataforms" class="py-5 mt-5"></div>
 
 <div class="mt-5 py-5 border-t border-gray-100">
-    {% for d in data %}
-
-    {% include "table/partials/data_detail.html" %}
-
-    {% endfor %}
+    {% if which_master == 0 %}
+        {% for d in data %}
+        {% include "table/partials/currency_data_detail.html" %}
+        {% endfor %}
+    {% elif which_master == 1 %}
+        {% for d in data %}
+        {% include "table/partials/product_data_detail.html" %}
+        {% endfor %}
+    {% else %}
+        {% for d in data %}
+        {% include "table/partials/base_data_detail.html" %}
+        {% endfor %}
+    {% endif%}
 </div>
 
 {% endblock %}
