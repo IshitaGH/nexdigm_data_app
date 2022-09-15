@@ -8,12 +8,11 @@ from django.http import HttpResponseRedirect
 import runpy
 from django.contrib.auth.decorators import login_required
 from django_tables2 import SingleTableView
+from .tables import Currency_Master, Product_Master, Distributor_Master
 from django.forms import modelformset_factory
-from microsoft_authentication.auth.auth_decorators import microsoft_login_required
 # Create your views here.
 
-# @login_required
-# @microsoft_login_required()
+@login_required
 def home(request):
     # model = Post
     # fields = ['num1', 'num2']
@@ -42,7 +41,7 @@ def home(request):
 #     'sum' = 
 # ]
 
-# @login_required
+@login_required
 def output(request):
     current = Post.objects.filter(author=request.user).last()
     if not current:
@@ -73,7 +72,7 @@ class ProductTableView(SingleTableView):
     table_class = Product_Master
     template_name = 'table/tables.html'
 
-def create_data(request, pk):
+def create_data(request, pk, which_master):
     author = Profile.objects.get(user=request.user)
     d = Data.objects.filter(author=author)
     form = Data_Form(request.POST or None)
@@ -102,7 +101,7 @@ def create_data(request, pk):
 
     return render(request, "table/create_data.html", context)
 
-def update_data(request, pk):
+def update_data(request, pk, which_master):
     print(f'pk passed into fn: {pk}')
     data = Data.objects.get(pk=pk)
     print(f'data referenced: {data}\n')
@@ -138,14 +137,19 @@ def delete_data(request, pk):
         ]
     )
 
-def detail_data(request, pk):
+def detail_data(request, pk, which_master):
     data = get_object_or_404(Data, pk=pk)
     print(data.pk)
     print("in detail data, detail id is ^\n\n")
     context = {
         "d": data,
     }
-    return render(request, "table/partials/data_detail.html", context)
+    if which_master == 0:
+        return render(request, "table/partials/currency_data_detail.html", context)
+    if which_master == 1:
+        return render(request, "table/partials/product_data_detail.html", context)
+    if which_master == 2:
+        return render(request, "table/partials/base_data_detail.html", context)
 
 def create_data_form(request):
     form = Data_Form()

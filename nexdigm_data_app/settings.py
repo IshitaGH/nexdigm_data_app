@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-n&jq6m934*9t^)9%2oqpi$&r6uqm@#15t^f1yq2d74&-s%v4fv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     "django_tables2",
     'tailwind',
     'crispy_tailwind',
-    # 'microsoft_auth',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -133,7 +132,7 @@ MEDIA_URL = '/media/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'table-home'
-LOGIN_URL = '/microsoft_authentication/login'
+LOGIN_URL = 'login'
 
 AUTH_PROFILE_MODULE = 'users.Profile'
 
@@ -144,13 +143,4 @@ AUTH_PROFILE_MODULE = 'users.Profile'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MICROSOFT = {
-    "app_id": "nexdigm_data_app",
-    "app_secret": "django-insecure-n&jq6m934*9t^)9%2oqpi$&r6uqm@#15t^f1yq2d74&-s%v4fv",
-    "redirect": "http://localhost:8000/microsoft_authentication/callback",
-    "scopes": ["user.read"],
-    "authority": "https://login.microsoftonline.com/common",  # or using tenant "https://login.microsoftonline.com/{tenant}",
-    # "valid_email_domains": ["<list_of_valid_domains>"],
-    "logout_uri": "http://localhost:8000/admin/logout"
-}
 
