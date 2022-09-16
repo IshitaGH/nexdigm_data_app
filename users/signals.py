@@ -5,9 +5,11 @@ from .models import Profile
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
+    # if a new profile is created, create an associated user
     if created:
         Profile.objects.create(user=instance)
 
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
+    # if changes are made to the profile, save them
     instance.profile.save()

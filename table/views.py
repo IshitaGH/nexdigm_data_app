@@ -1,27 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseNotAllowed
+from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseRedirect
 from .models import Post, Data
 from users.models import Profile
-# from django.views.generic import CreateView, DetailView
-from .forms import Post_Form, Data_Form, Data_FormSet
-from django.http import HttpResponseRedirect
+from .forms import Post_Form, Data_Form
 import runpy
 from django.contrib.auth.decorators import login_required
-from django.forms import modelformset_factory
 # Create your views here.
 
 @login_required
 def home(request):
-    # model = Post
-    # fields = ['num1', 'num2']
-    # template_name = 'table/home.html'
-    # context_object_name = 'posts'
-
-    for p in Profile.objects.all():
-        print(p)
-        print()
     submitted = False
     if request.method == "POST":
+        # if the user clicks submit, validate and save the form, then redirect to the output page
         form = Post_Form(request.POST)
         if form.is_valid():
             new_post = form.save()
@@ -29,22 +19,24 @@ def home(request):
             new_post.save()
             return HttpResponseRedirect('output/')
     else:
+        # if the user has not yet submitted, then stay on the home page
         form = Post_Form
         if 'submitted' in request.GET:
             submitted = True
 
     return render(request, 'table/home.html', {'form':form, 'submitted':submitted})
 
-# output = [
-#     'sum' = 
-# ]
-
 @login_required
 def output(request):
+    # get the most recent output for each user
     current = Post.objects.filter(author=request.user).last()
+    
     if not current:
+        # if the user has not filled out the Post_Form before and navigated to this page by themselves,
+        # send them back to the home page
         return HttpResponseRedirect('/')
     else:
+        # run the dummy scripts and display the output
         global_vars = {
             "current_entry": current
         }
@@ -57,6 +49,7 @@ def output(request):
         }
         return render(request, 'table/output.html', context)
 
+# display the about page for the website
 def about(request):
     return render(request, 'table/about.html', {'title': 'About'})
 
@@ -65,18 +58,16 @@ def create_data(request, pk, which_master):
     author = Profile.objects.get(user=request.user)
     d = Data.objects.filter(author=author)
     form = Data_Form(request.POST or None)
-    print("in create data\n")
 
     if request.method == "POST":
-        print("in request.method=POST of create_data")
         if form.is_valid():
+            # if the user inputted valid data, save it and redirect it to the normal master data page
             data = form.save(commit=False)
             data.author = author
             data.save()
-            print("create data redirecting to detail data\n")
             return redirect("detail-data", pk=data.id, which_master=which_master)
         else:
-            print("create data redirecting to create data cuz invalid form\n")
+            # if the user inputted invalid data, tell them they need to submit valid data
             return render(request, "table/partials/data_form.html", context={
                 "form": form
             })
@@ -87,43 +78,39 @@ def create_data(request, pk, which_master):
         "data": d,
         "which_master": which_master
     }
-    print("create data redirecting to create cuz nothing happened data\n")
 
+    # if the user is not adding new data, then display the normal master data page
     return render(request, "table/create_data.html", context)
 
 @login_required
 def update_data(request, pk, which_master):
-    print(f'pk passed into fn: {pk}')
     data = Data.objects.get(pk=pk)
-    print(f'data referenced: {data}\ncurrency: {data.Currency}\n')
     form = Data_Form(request.POST or None, instance=data)
 
+    # if the user updates the data and it is valid, then save the changes and go back to the normal master data page
     if request.method == "POST":
         if form.is_valid():
             form.save()
-            print("in update data- when updating data IS posted, id available")
-            print(data.id)
             return redirect("detail-data", pk=data.pk, which_master=which_master)
 
+    # if the user has not yet updated the data or it is not valid, keep showing them the form to update
     context = {
         "form": form,
         "d": data,
         "which_master": which_master
     }
 
-    print("in update data- data form NOT yet posted")
     return render(request, "table/partials/data_form.html", context)
 
 @login_required
 def delete_data(request, pk):
+    # delete the data object if they click delete
     data = get_object_or_404(Data, pk=pk)
 
     if request.method == "POST":
         data.delete()
-        print("in delete data- deleted entry")
         return HttpResponse("")
 
-    print("in delete data- did not delete the data")
     return HttpResponseNotAllowed(
         [
             "POST",
@@ -132,9 +119,9 @@ def delete_data(request, pk):
 
 @login_required
 def detail_data(request, pk, which_master):
+    # depending on which master data page they are accessing, display the pertinent information
+    # eg. if in currency master data, display currency, but not product information
     data = get_object_or_404(Data, pk=pk)
-    print(data.pk)
-    print("in detail data, detail id is ^\n\n")
     context = {
         "d": data,
         "which_master": which_master
@@ -148,9 +135,9 @@ def detail_data(request, pk, which_master):
 
 @login_required
 def create_data_form(request):
+    # display the form for creating a new data object
     form = Data_Form()
     context = {
         "form": form,
     }
-    print("in create data form- am creating a new data entry\n\n")
     return render(request, "table/partials/data_form.html", context)

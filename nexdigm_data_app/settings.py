@@ -140,10 +140,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'table-home'
 LOGIN_URL = 'login'
 
-# AUTH_PROFILE_MODULE = 'users.Profile'
-
-# AUTH_USER_MODEL = 'users.Profile'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
