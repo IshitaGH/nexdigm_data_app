@@ -1,5 +1,6 @@
-{% extends "users/base.html" %}
+{% extends "table/base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
     <div class="content-section">
         <form method="POST">
@@ -9,12 +10,15 @@
                 {{form|crispy}}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Login</button>
+                <button class="btn-pink" type="submit">Login</button>
+                <small class="text-muted ml-2">
+                    <a class="dealer-link" href="{% url 'password_reset' %}">Forgot Password?</a>
+                </small>
             </div>
         </form>
         <div class="border-top pt-3">
             <small class="text-muted">
-                Don't Have an Account? <a class "ml-2" href="{% url 'register' %}">Sign Up Now!</a>
+                Don't Have an Account? <a class="dealer-link" href="{% url 'register' %}">Sign Up Now!</a>
             </small>
         </div>
     </div>

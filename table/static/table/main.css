@@ -20,13 +20,13 @@ body {
 
   .btn-pink {
     background-color: #bb28b5;
-    box-shadow: #771b74;
     color: white;
-    border: 1px solid #771b74;
+    border: transparent;
     padding-top: 10px;
     padding-right: 30px;
     padding-bottom: 10px;
     padding-left: 30px;
+    border-radius: 6px;
   }
 
   .btn-pink:hover {

@@ -10,6 +10,7 @@ pillow = "*"
 django-tables2 = "*"
 django-tailwind = "*"
 crispy-tailwind = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

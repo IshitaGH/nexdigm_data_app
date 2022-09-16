@@ -5,14 +5,17 @@ from PIL import Image
 # Create your models here.
 
 class Profile(models.Model):
+    # REQUIRED_FIELDS = []
+    # USERNAME_FIELD = user.email
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
     def __str__(self):
-        return f'{self.pk} Profile'
+        return f'{self.user.username} Profile'
 
     def save(self, *args, **kwargs):
-        super(Profile, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
         
         img = Image.open(self.image.path)
         if img.height > 300 or img.width > 300:
