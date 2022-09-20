@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'table.apps.TableConfig',
     'crispy_forms',
-    "django_tables2",
     'tailwind',
     'crispy_tailwind',
     'django.contrib.admin',

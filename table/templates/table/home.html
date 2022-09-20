@@ -2,6 +2,7 @@
 
 {% extends "table/base.html" %}
 {% block content %}
+{% load crispy_forms_tags %}
     <div class="content-section">
         <h2>Enter Data Consolidation Preferences</h2>
         {% if submitted %}
@@ -10,7 +11,7 @@
             <form action="" method="POST">
                 {% csrf_token %}
 
-                {{ form.as_p }}
+                {{ form | crispy }}
 
                 <a class="dealer-link" href="https://skpgroup-my.sharepoint.com/personal/shmalve_skpgroup_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fshmalve%5Fskpgroup%5Fcom%2FDocuments%2FDCT%20Web%20App&ct=1662059103768&or=Teams%2DHL&ga=1">
                     Dealer 1
